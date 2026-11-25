@@ -103,3 +103,11 @@ real loaders still read their own paths (OMP reads `package.json`
 `omp.extensions`; Cursor reads `.cursor/` layouts), because neither
 implements §8 namespaces — the manifest entry keeps the mapping
 machine-readable for the day they do, without breaking today's loaders.
+
+## Amendment: frontmatter stripped for strict harnesses
+
+`disable-model-invocation: true` (plus `icon`/`color`, `paths:`) removed
+from all 58 skills. A harness that enforces the flag without an explicit-
+invocation escape hatch hid everything — including the `poteto-mode` front
+door. Visibility everywhere beats quiet-catalog; the authoring guidance in
+`automate-me` now forbids non-standard frontmatter keys for the same reason.

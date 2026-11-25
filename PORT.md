@@ -21,11 +21,13 @@ see `DESIGN.md` "Universal plugin" for what stays portable.
 | `/setup-pstack` | `/setup-pstack-omp` (harness-aware superset; writes host-native config) |
 | `~/.cursor/projects/*/` transcript globs | host-agnostic "active workspace's transcript dir (system prompt names the path)" — no invented paths |
 | `.cursor/skills`, `~/.cursor/skills`, `~/.cursor/projects` | `.omp/skills`, `~/.omp/agent/skills`, no invented transcript-cache path |
+| `disable-model-invocation: true`, `icon`/`color`, `paths:` frontmatter | stripped repo-wide: strict harnesses reject unknown keys and hide the skill; visibility beats quiet-catalog (OMP operators can re-hide via `skills.manualSkills`) |
 
 ## Port status — complete
 
 - [x] `plugin.json` — portable Agent Plugins 1.0.0 manifest (closed schema: no `skills`/`agents` fields, discovery is by fixed location); `package.json` (`omp.extensions`) + `src/` + OMP-tuned `agents/` stay as the OMP client extension — outside the v1 portable contract, like benny's Cursor automation pack
 - [x] `setup-pstack-omp` — rewritten: harness detection (step 0) + pack resolver confined to the host registry + host-native write (OMP config.yml / Cursor .mdc / print-and-apply elsewhere)
+- [x] frontmatter stripped to portable keys (`name`, `description`) across 58 skills — strict-harness visibility fix
 - [x] `agents/poteto-agent.md`, `agents/comment-sicko.md` — frontmatter ported (OMP client extension)
 - [x] `skills/poteto-mode/SKILL.md` — entry contract (command door, gate, pin) ported
 - [x] `worker.md` — verbatim (bar, PR shape, kickoff rule are host-agnostic)

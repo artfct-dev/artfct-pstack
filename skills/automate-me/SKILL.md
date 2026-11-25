@@ -1,7 +1,6 @@
 ---
 name: automate-me
 description: "Use for \"automate me\", \"create/update/refresh my -mode skill\", \"turn/capture my preferences or working style into a skill\", or wanting agents to follow how the user works. Drafts or revises a personal -mode skill via the authoring-a-skill playbook + unslop, optionally pulling fresh evidence from recent transcripts."
-disable-model-invocation: true
 ---
 
 # Automate me
@@ -70,7 +69,7 @@ Use the **authoring a skill** playbook to author the skill. Placement:
 - Handle: the user's first name or chosen identifier.
 - Frontmatter `description`: trigger on their name + `/<handle>-mode` + "work in their style", not on generic keywords like "write code" or "review PR".
 - Frontmatter formatting: follow the playbook's YAML rules (matching `name`, one `description`). Keep `description` as one YAML scalar. Quote it or use `description: >-` with indented continuation lines when punctuation or wrapping requires it.
-- Frontmatter `disable-model-invocation: true` by default. Opt out only if the user explicitly wants their mode to apply on every turn.
+- Frontmatter: `name` + one `description` only — no `disable-model-invocation`, `icon`/`color`, or other non-standard keys. Strict harnesses reject unknown frontmatter and hide the skill, so visibility everywhere beats quiet-catalog. (An OMP operator who wants the old quiet catalog re-hides via `skills.manualSkills`.)
 
 ### 5. Iterate on prose
 
