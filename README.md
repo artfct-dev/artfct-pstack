@@ -1,53 +1,58 @@
 # artfct-pstack
+
 > Add-on that works alongside [pstack](https://github.com/cursor/plugins/tree/main/pstack)
 > (MIT, copyright Lauren Tan, handle poteto). Not a rebrand; no endorsement
 > by Cursor or SpaceXAI is stated or implied. See `LICENSE`.
 
-Poteto-mode rigorous engineering workflows in the artfct ecosystem — a
-portable agent plugin (`plugin.json`) with a native OMP client extension.
-Full-port policy and locked decisions live in [`DESIGN.md`](DESIGN.md); the
-host→OMP substitution log in [`PORT.md`](PORT.md).
+Poteto-mode rigorous engineering workflows as a **universal agent plugin**
+(portable `plugin.json`), **artfct-first**: wherever you run it, proof ends as
+an Artfct artifact. Decision trails, feature maps, benchmark tables, and
+bakeoff comparisons publish team-shared via the Artfct MCP when it's
+available — on any harness. Full-port policy and locked decisions live in
+[`DESIGN.md`](DESIGN.md); the host→port substitution log in [`PORT.md`](PORT.md).
 
 ## Install
 
-```bash
-omp plugin link /Users/ruby/Documents/dev/artfct-pstack
-# then in a live session:
-/reload-plugins
-```
+| Harness | How | State |
+|---|---|---|
+| OMP | `omp plugin link /path/to/artfct-pstack`, then `/reload-plugins` | ✅ verified live |
+| Cursor | clone into `~/.cursor/plugins/artfct-pstack` (skills resolve as `skills/<name>/SKILL.md`) | 🟡 content-ported, needs a live pass |
+| Claude Code | via its plugin system once cataloged (pending); skills are importable today | 🟡 content-ported, needs a live pass |
+| Codex / other | copy `skills/` into the harness skills dir; host-agnostic cores apply, host-only steps skip with a note | 🟡 designed, needs a live pass |
 
-(TUI plugin mutations need `/reload-plugins`; a restart is required if hooks
-or tools change.)
-
-## Setup (required — `/poteto-mode` refuses without it)
+## Setup (required before `/poteto-mode` runs anything)
 
 ```
 /setup-pstack-omp
 ```
 
-Picks a pack (`defaults | big-labs | chinese-labs | free | <any provider id>`),
-detects the host harness and its models, chooses a budget
-(`large/medium/small`), writes role routing in host-native form. Re-run
-anytime to switch packs.
+Detects the host harness first and never leaves its registry — Codex resolves
+Codex models only. Picks a pack (`defaults | big-labs | chinese-labs | free |
+<any provider id>`), a budget (`large/medium/small`), and writes role routing
+in host-native form. Re-run anytime to switch packs.
 
 ## Use
 
 ```
 /poteto-mode fix the scroll drift, repro first then verify   # one-shot
-/poteto-mode            # enter pinned mode (enter-only)
+/poteto-mode            # enter pinned mode — OMP extension (enter-only)
 /poteto-mode off        # leave pinned mode
 /poteto-help            # which skill for this task?
+/publish-evidence       # publish the trail + maps + evidence to Artfct
 ```
 
-One-shot matches a playbook, opens its todos, routes to skills; pinned mode
-does the same every turn until you leave. Long runs: watch Agent Hub (`Alt+A`),
-catch up with `/ketchup` on return.
+One-shot matches a playbook, opens its todos, routes to skills. On OMP, pinned
+mode does the same every turn until you leave; on other harnesses, invoke the
+`poteto-mode` skill per task. Long runs: watch the subagent roster, catch up
+with `/ketchup` on return.
+
+Every verification or show-me-your-work run closes by publishing proof to
+Artfct when the MCP is available — team-shared, updating in place on re-runs,
+never public unless asked, secrets redacted first.
 
 ## Scope notes
 
 - `benny/` (issue triage automation) is ported as content, but its live
-  runtime needs Cursor Automations — no OMP equivalent yet. See `PORT.md`.
-- `/setup-pstack-omp` is required before `/poteto-mode` runs anything.
-- Poteto-mode evidence outputs (verification reports, bakeoff comparisons,
-  decision trails) publish as Artfct artifacts when the artfct MCP is
-  available — see `DESIGN.md`.
+  runtime needs Cursor Automations — no equivalent elsewhere yet. See `PORT.md`.
+- Host-only steps (pinned mode, `sessionModes` loop, `ctx.ui.*` dialogs) are OMP
+  extension features; elsewhere they skip with a one-line note per the skill text.

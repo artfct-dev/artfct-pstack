@@ -70,3 +70,18 @@ step 0 detects the harness (asked when ambiguous), and resolution never
 leaves that harness's registry — Codex resolves Codex models only. Writes
 are host-native (OMP `config.yml`, Cursor `.mdc`, print-and-apply
 elsewhere). Packs name intent (provider, lab grouping, free), never IDs.
+
+## Amendment: universal + artfct-first
+
+The plugin is universal and artfct-first. Universal: portable `plugin.json`
+core, relative links, spec-legal frontmatter, harness-aware setup — every
+harness gets the full workflow, host-only steps degrading to documented
+skip-notes, never silent breakage. No README/docs claim "OMP-only" for
+workflow content; OMP-only is reserved for extension-runtime features
+(commands, pinned mode, dialogs), each labeled as such where mentioned.
+Artfct-first: proof is the product. Every verification and show-me-your-work
+run closes by publishing to Artfct when the MCP is available, on any
+harness. The publish path (discover → redact → bundle → deploy/update) is
+harness-agnostic; only the skill discovery roots vary
+(`.cursor`/`.claude`/`.omp`). This scope (universal + artfct-first) is part
+of RUB-595.
