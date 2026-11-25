@@ -20,6 +20,8 @@ Ask which harness when ambiguous. Never invent a path; use the harness's own mec
 - **Claude Code / Claude app / Cowork / Grok Build**: `/plugin marketplace add artfct-dev/artfct-plugin`, then `/plugin install artfct@artfct`. Approve the sign-in page.
 - **Other Agent Plugins clients**: clone `artfct-dev/artfct-plugin` and use `plugins/artfct` as the 1.0 package directory, per its README and the client's install docs.
 
+**Version.** Marketplace installs resolve through the catalog (which reads `main`); clones MUST check out an explicit ref — newest `release-*` tag by default, or a user-pinned tag. Either way, read back the installed `plugins/artfct/plugin.json` `version` and report it; that version is the answer to "which version is installed". Re-run this skill to upgrade or switch pins.
+
 ## 3. Verify the connection
 
 Call `get_connection`: expect `authenticated: true`. Confirm the organization — prefer `artfct-dev`; on a mismatch, say which org is active and offer the OAuth reconnect, don't switch silently. Read the `save_to_artfct` preference (`always`/`ask`/`never`) and report it, since it decides whether later steps may publish unasked. Finish with one cheap `search_artifacts` round-trip to prove search works end to end.
