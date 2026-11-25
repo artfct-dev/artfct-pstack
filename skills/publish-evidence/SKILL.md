@@ -21,7 +21,7 @@ It finds, across Cursor (`.cursor/skills/`), Claude Code (`.claude/skills/`), an
 - feature maps: `verify-*/` skill dirs (`SKILL.md`, `features/**`, index READMEs);
 - evidence files: file paths named in the log's evidence column (commit SHAs and PR numbers are recorded as text, not files).
 
-`decisions.tsv`/`.audit/` rows follow the **show-me-your-work** format — reference it by name, don't restate the columns.
+Follow the artfct publish rules (`artfct-publish` skill when present; if no Artfct MCP tools exist at all, run **setup-artfct** first and return here). Then:
 
 ## 2. Redact
 

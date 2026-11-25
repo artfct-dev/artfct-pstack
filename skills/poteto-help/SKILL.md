@@ -34,6 +34,7 @@ When the model config is missing and it matters, ask via `ctx.ui.confirm` whethe
 
 ## Get set up
 
+0. Run [`/setup-artfct`](../setup-artfct/SKILL.md) if the Artfct plugin isn't installed and connected — everything proof-shaped depends on it.
 1. Install with `omp plugin link <path-to-artfct-pstack>` (or `/marketplace install artfct-pstack@<marketplace>` once published), then run `/reload-plugins` in the live session.
 2. Run [`/setup-pstack-omp`](../setup-pstack-omp/SKILL.md). It asks for a reasoning budget, maps a model to each role, and writes the role routing to the OMP agent config. The config applies to new chats. Then it offers once each to generate a verification skill and a formal verification skill for the project, unless the project already has one.
 3. Start a real task with `/poteto-mode`, a goal, and a check that can pass or fail.
