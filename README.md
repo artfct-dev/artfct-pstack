@@ -56,3 +56,6 @@ never public unless asked, secrets redacted first.
   runtime needs Cursor Automations — no equivalent elsewhere yet. See `PORT.md`.
 - Host-only steps (pinned mode, `sessionModes` loop, `ctx.ui.*` dialogs) are OMP
   extension features; elsewhere they skip with a one-line note per the skill text.
+
+Working in this repo? Read [`AGENTS.md`](AGENTS.md) first — spec conformance
+floor, commands, and commit rules.
