@@ -73,8 +73,14 @@ elsewhere). Packs name intent (provider, lab grouping, free), never IDs.
 
 ## Amendment: universal + artfct-first
 
-The plugin is universal and artfct-first. Universal: portable `plugin.json`
-core, relative links, spec-legal frontmatter, harness-aware setup — every
+Layout follows the Agent Plugins package shape: root `plugin.json`
+(closed 1.0.0 manifest — no `skills`/`agents` fields; discovery is by fixed
+location) plus portable `skills/` is the portable core; `package.json`
+(`omp.extensions`) + `src/` + OMP-tuned `agents/` is the OMP client
+extension, and `automations/benny/` the Cursor automation pack. Per the
+spec's design decisions, agents/hooks/commands are outside the v1 portable
+contract — they live as client-specific content, ignored by conformant
+clients that don't implement them.
 harness gets the full workflow, host-only steps degrading to documented
 skip-notes, never silent breakage. No README/docs claim "OMP-only" for
 workflow content; OMP-only is reserved for extension-runtime features
@@ -85,3 +91,15 @@ harness. The publish path (discover → redact → bundle → deploy/update) is
 harness-agnostic; only the skill discovery roots vary
 (`.cursor`/`.claude`/`.omp`). This scope (universal + artfct-first) is part
 of RUB-595.
+
+## Amendment: client extensions (spec §8)
+
+Per-client content is declared, not smuggled: `plugin.json` carries it under
+our own namespace `dev.artfct.pstack` (reverse-domain, owned via artfct.dev),
+mapping each client to its content (`omp` → `package.json` + `src/` +
+`agents/`; `cursor` → `automations/benny/`; portable `skills/` for everyone).
+Conformant clients ignore the whole block. This is documentation-as-data:
+real loaders still read their own paths (OMP reads `package.json`
+`omp.extensions`; Cursor reads `.cursor/` layouts), because neither
+implements §8 namespaces — the manifest entry keeps the mapping
+machine-readable for the day they do, without breaking today's loaders.

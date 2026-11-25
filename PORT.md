@@ -24,7 +24,7 @@ see `DESIGN.md` "Universal plugin" for what stays portable.
 
 ## Port status — complete
 
-- [x] `plugin.json` — portable Agent Plugins 1.0.0 manifest (`$schema`, name `artfct-pstack`, `skills/`, `agents/`); `package.json` `omp.extensions` stays as the OMP client extension (hybrid package)
+- [x] `plugin.json` — portable Agent Plugins 1.0.0 manifest (closed schema: no `skills`/`agents` fields, discovery is by fixed location); `package.json` (`omp.extensions`) + `src/` + OMP-tuned `agents/` stay as the OMP client extension — outside the v1 portable contract, like benny's Cursor automation pack
 - [x] `setup-pstack-omp` — rewritten: harness detection (step 0) + pack resolver confined to the host registry + host-native write (OMP config.yml / Cursor .mdc / print-and-apply elsewhere)
 - [x] `agents/poteto-agent.md`, `agents/comment-sicko.md` — frontmatter ported (OMP client extension)
 - [x] `skills/poteto-mode/SKILL.md` — entry contract (command door, gate, pin) ported
