@@ -1,0 +1,6 @@
+ts	phase	decision	why	evidence	result
+2026-11-25T10:00:00Z	probe	kept the fast path	measured 2x	commit abc1234	kept
+2026-11-25T10:05:00Z	visual	matched header spacing	pixel check	evidence/shot.png, PR 42	pixel-diff 0
+2026-11-25T10:09:00Z	config	read the signing key	needed Thumbor URL	secrets/.env	reverted
+2026-11-25T11:00:00Z	keys	rotated deploy token	leak drill	tokens.txt, evidence/deploy.log	rotated
+2026-11-25T12:00:00Z	markup	probed <script>alert(1)</script> title	XSS drill	missing-file.txt	open

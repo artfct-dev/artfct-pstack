@@ -1,0 +1,20 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Unit tests
+        run: bun test skills/publish-evidence/tests/
+      - name: Typecheck extension
+        run: bun x --package typescript -- tsc --noEmit --strict --skipLibCheck --module nodenext --moduleResolution nodenext --target es2022 src/pstack.ts
+      - name: Validate manifests
+        run: bun -e 'for (const f of ["plugin.json","package.json"]) { const m = await Bun.file(f).json(); if (!m.name) throw new Error(f); } console.log("manifests ok")'
