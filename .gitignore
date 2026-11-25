@@ -1,0 +1,3 @@
+node_modules/
+skills/publish-evidence/tests/fixtures/out/
+*.tsbuildinfo
