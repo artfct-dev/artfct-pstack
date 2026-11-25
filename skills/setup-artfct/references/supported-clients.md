@@ -1,0 +1,23 @@
+# Supported clients — install matrix
+
+How to install a portable Agent Plugins v1 package (root `plugin.json` + `skills/` + `mcp.json`, e.g. the artfct plugin) per harness. Verified = live-tested by us; documented = per official docs, not yet run end to end. Version pinning is weak everywhere except git refs — always read back the installed `plugin.json` `version`.
+
+| Client | Install | Skills surface | MCP | Notes |
+|---|---|---|---|---|
+| OMP | `~/.omp/agent/mcp.json` + `skills.customDirectories` → package dir; `/mcp reload` | `skill://<name>`, `/skill:<name>` | `type: http` + url (native shape); OAuth interactive | ✅ verified live |
+| OpenClaw | `openclaw plugins install --force --accept-capabilities <path>` (`git:<owner/repo>@<ref>`, npm, ClawHub also work); `--profile` to isolate | plugin-bundled, auto | bundled MCP servers via plugin config | ✅ verified live, 14/14 skills |
+| Hermes | Git installer needs **root manifest** (monorepo checkouts don't register); `hermes plugins validate <dir>` + `plugins doctor <dir>` pre-check; single skills by raw `SKILL.md` URL work | `artf─┴:…` namespaced — always qualify, unqualified names resolve to nothing | `mcp.json` streamable-http entries route to native remote client; OAuth interactive | ✅ verified live (skills in-agent, MCP wired, auth pending) |
+| Claude Code / app / Cowork / Grok Build | `/plugin marketplace add artfct-dev/artfct-plugin`, `/plugin install artfct@artfct` | `/<plugin>:<skill>`, auto + explicit | bundled incl. `.mcpb` + per-plugin Configure | documented (marketplace is the native path) |
+| Codex CLI | `codex plugin marketplace add …` + `codex plugin install`; marketplaces from GitHub, git URL, local dir, hosted `marketplace.json` | repo + user + plugin scopes, auto + slash | shares MCP config with desktop app + IDE on same host | documented |
+| ChatGPT | Plugins catalog browse/install (desktop app); `Build skills` → distribute as bundled multi-skill plugins | shared ChatGPT↔Codex skill standard | shared MCP config across desktop/CLI/IDE | documented |
+| VS Code | Agent Customizations → Plugins → `+` (marketplace, Git URL, local folder); deep-link `vscode://chat-plugin/install`; auto-discovers Copilot CLI installs under `~/.copilot/installed-plugins/` | Configure Skills, auto + `/` slash, namespaced per plugin | bundled servers appear in MCP list, per-server setup | documented |
+| GitHub Copilot | `copilot plugin marketplace add OWNER/REPO\|URL\|/local-path`, `copilot plugin install PLUGIN@MARKETPLACE`; subdir + direct installs supported | repo `.github/skills/` + plugin-bundled, all agent surfaces | plugin-bundled MCP (transports unverified) | documented, incl. subdir installs |
+| Cursor | Marketplace one-click, or copy skill folders into `.agents/skills/` / `.cursor/skills/` (project) or `~` global equivalents | auto-loaded, agent-decides + `/skill-name`; honors `disable-model-invocation` when present | one-click marketplace installs | documented |
+| Devin | Marketplace, Add plugin → From repository (**owner/repo or git URL + subdir**), `.zip` upload, in-editor create; CLI `devin plugins install` | `/<plugin>:<skill>` or `@skills:<name>` | Customize → MCPs tab | documented — subdir installs natively supported |
+| Kiro | **No package ingest — per-skill import only**: panel → Agent Steering & Skills → `+` → repo URL pointing at the skill **subdirectory** (not root) or local folder → `.kiro/skills/` | auto-match on description + `/name` | stdio + remote HTTP/SSE, OAuth for remote | documented |
+| NanoClaw | Manual copy of `skills/` content into host skill dirs (`.claude/skills/`, container `/app/skills`) | host-harness skills, `/add-<thing>` style | via container manifest + `mcp-remote` bridge | documented — no `plugin.json` installer |
+| OpenHands | `/add-skill <GitHub-URL>` (skill-folder granularity) or `cp -r` into `.agents/skills/` / `~/.agents/skills/` | loads at conversation start | settings MCP config | documented — no package step |
+| Perplexity | Plugins page → Add custom → upload `.zip` (root `plugin.json`) or import public GitHub repo/folder URL | ≤32 skills per plugin, per-skill enable switch, `/` → Plugins | remote-only (`streamable-http\|http\|sse`, ≤15 servers, no stdio) | documented — 32-skill cap matters for large packs |
+| Antigravity | App: local skill dirs; CLI: `agy plugin install <name>\|<GitHub-URL>\|./local-path` | app + CLI skill dirs, auto + `/<skill>` | local + remote MCP (stdio/SSE/HTTP) | documented |
+
+Rules that hold everywhere: package root must contain `plugin.json` (monorepo subdirs need a client with subdir support — Devin and Copilot have it, Hermes does not); OAuth sign-in is always interactive; after installing, read back the installed `plugin.json` `version`.

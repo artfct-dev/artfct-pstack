@@ -14,7 +14,7 @@ Artfct is the shared library: proof published there survives the session. This s
 
 ## 2. Install for the detected harness
 
-Ask which harness when ambiguous. Never invent a path; use the harness's own mechanism:
+Ask which harness when ambiguous. Never invent a path; use the harness's own mechanism. The per-client table lives in [`references/supported-clients.md`](references/supported-clients.md) — checked rows first, documented rows as written:
 
 - **OMP**: add the server to the user MCP file (`~/.omp/agent/mcp.json`, profiles under `~/.omp/profiles/<name>/agent/mcp.json`) in OMP-native shape — `{"artfct": {"type": "http", "url": "https://artfct.dev/mcp"}}` — then `/mcp reload`. Skills: point `skills.customDirectories` at the package's `skills/` directory (repo root once the flattening lands; `plugins/artfct/skills/` on older checkouts). Approve the Artfct sign-in when it opens.
 - **Claude Code / Claude app / Cowork / Grok Build**: `/plugin marketplace add artfct-dev/artfct-plugin`, then `/plugin install artfct@artfct`. Approve the sign-in page.
