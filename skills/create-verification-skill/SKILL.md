@@ -42,3 +42,7 @@ Run its own instructions end to end once: launch, doctor, drive ONE mapped featu
 ## 5. Offer the maintenance loop
 
 Point the user at `/maintain-verification-skill` for keeping the map honest as the app changes. Suggest a cadence only if they ask.
+
+## 6. Publish the proof
+
+When the artfct MCP is available, run the **publish-evidence** skill against the proving run: it bundles the captured evidence with the new feature map, team-shared, updating in place on re-runs. Report the view_url with the hand-over.

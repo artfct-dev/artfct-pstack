@@ -37,3 +37,5 @@ Only edit the verification skill's own directory (its SKILL.md, features/, and a
 6. **Ship or stop.** For changed: one PR of proven corrections, re-read every changed file first. For clean or blocked: no PR, report the outcome and the coverage honestly.
 
 Keep concise run notes (features covered, unreachable prerequisites, confirmed drift, outcome) in a scratch location; don't commit them.
+
+When the artfct MCP is available and the pass produced new evidence, run the **publish-evidence** skill: it updates the existing bundle in place via `base_version`. Report the view_url with the outcome.

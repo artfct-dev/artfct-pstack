@@ -77,6 +77,10 @@ Every reply for a run that produced a trail ends with an "Attention" section. Le
 
 Read top to bottom, follow the evidence pointers, spot-check. GitHub renders a committed TSV as a table. `column -s$'\t' -t decisions.tsv` renders it in a terminal.
 
+## Publishing the trail
+
+When the artfct MCP is available, publish the trail so teammates and other agents can find it: run the **publish-evidence** skill. It discovers the log (plus any verify-* feature maps and evidence files), redacts secrets, and deploys a team-shared bundle — updating in place on re-runs. Never public unless the user asks. Report the view_url with the hand-back.
+
 ## Composing this skill
 
 Other skills route their audit trail here instead of inventing one. Reference it by name and let it own the format. Don't restate the columns.
