@@ -10,7 +10,7 @@
     {
       "name": "artfct-pstack",
       "source": "./",
-      "description": "Rigorous agent workflows you can parallelize with confidence. Artfct-ecosystem port of Cursor pstack: portable agent plugin with native client extensions."
+      "description": "Add-on that works alongside pstack: rigorous poteto-mode workflows with proof published to Artfct."
     }
   ]
 }

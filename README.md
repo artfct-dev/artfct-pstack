@@ -2,7 +2,7 @@
 
 > Add-on that works alongside [pstack](https://github.com/cursor/plugins/tree/main/pstack)
 > (MIT, copyright Lauren Tan, handle poteto). Not a rebrand, and not endorsed
-> by Cursor or Lauren Tan. See `LICENSE`.
+> by Cursor or Lauren Tan. See `LICENSE` and `NOTICE`.
 
 Poteto-mode rigorous engineering workflows as a **universal agent plugin**
 (portable `plugin.json`), **artfct-first**: wherever you run it, proof ends as

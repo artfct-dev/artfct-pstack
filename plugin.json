@@ -1,1 +1,32 @@
-{"$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json", "author": {"name": "artfct-pstack contributors"}, "description": "Rigorous agent workflows you can parallelize with confidence. Artfct-ecosystem port of Cursor pstack: portable agent plugin with native client extensions.", "extensions": {"dev.artfct.pstack": {"cursor": {"automations": "./automations/benny/"}, "omp": {"agents": "./agents/", "extension": "./src/pstack.ts", "manifest": "./package.json"}, "portable": {"skills": "./skills/"}}}, "keywords": ["poteto-mode", "workflow", "code-review", "verification"], "license": "MIT", "name": "artfct-pstack", "repository": "https://github.com/artfct-dev/artfct-pstack", "version": "0.1.0"}
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "author": {
+    "name": "artfct-pstack contributors"
+  },
+  "description": "Add-on that works alongside pstack: rigorous poteto-mode workflows with proof published to Artfct.",
+  "extensions": {
+    "dev.artfct.pstack": {
+      "cursor": {
+        "automations": "./automations/benny/"
+      },
+      "omp": {
+        "agents": "./agents/",
+        "extension": "./src/pstack.ts",
+        "manifest": "./package.json"
+      },
+      "portable": {
+        "skills": "./skills/"
+      }
+    }
+  },
+  "keywords": [
+    "poteto-mode",
+    "workflow",
+    "code-review",
+    "verification"
+  ],
+  "license": "MIT",
+  "name": "artfct-pstack",
+  "repository": "https://github.com/artfct-dev/artfct-pstack",
+  "version": "0.1.0"
+}

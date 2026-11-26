@@ -20,12 +20,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-artfct-pstack is an add-on that works alongside pstack (https://github.com/cursor/plugins/tree/main/pstack,
-MIT, copyright Lauren Tan, author handle poteto). It is not a rebrand of pstack, and it is not
-endorsed by Cursor or Lauren Tan. Skill bodies and playbooks above are adapted from pstack
-material under the terms above; `src/`, `plugin.json`/`package.json` manifests, and the
-`setup-pstack-omp` / Artfct-publish additions are original contributions, copyright Artfct, under
-the same license.
