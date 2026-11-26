@@ -82,11 +82,12 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 
 **Use `agent: "poteto-agent"` for any subagent you spawn directly inside a playbook step.** The chat that receives `/poteto-mode` runs the playbook itself. Routed workflow skills (`interrogate`, `swarm`) set their own agent. Respect it.
 
-**Defaults for every `task` call.** Async execution, file pointers not inlined context, and an explicit model per role. `/setup-pstack-omp` writes the role routing to the OMP agent config, whose per-role entries override the defaults below and the role models in the routed skills (`arena`, `swarm`, `interrogate`). A role with no entry keeps its default. An entry of `inherit-parent` or `auto` runs the role on the parent model, so omit `model` and use the default agent. Each code playbook reads its own role (`poteto-code`), prose and judgment read `poteto-prose`, and trivial mechanical edits read `poteto-swarm`.
+**Defaults for every `task` call.** Async execution, file pointers not inlined context, and the role model the spawn needs. `/setup-pstack-omp` writes the routing into `~/.omp/agent/config.yml`. OMP enforces it two ways: `poteto-agent` frontmatter resolves `@poteto-code`, and any other role reaches a spawn as its concrete `provider/model-id[:level]` in `model` (one spawn per entry for panels). An `@role` alias is not a valid per-call model. Passing a concrete selector needs `task.perCallModel: on`, which setup writes; with it off, `model` is rejected and the spawn runs the agent's own role. An `auto` or `inherit-parent` value runs on the parent model: omit `model` and use the default `task` agent.
 
-- Code, prose, and judgment: `@poteto-code` / `@poteto-prose` as resolved by setup (upstream default: e.g. a flagship reasoning model at xhigh).
-- Trivial mechanical edits: `@poteto-swarm` (upstream default: e.g. a flagship model one step down).
-- Diverse review and design panels: the `@poteto-arena` / `@poteto-interrogate` lists (upstream default: e.g. three distinct-family seats), one runner per entry.
+- Code: spawn `agent: "poteto-agent"` with no `model`; its frontmatter routes `poteto-code` (upstream default: e.g. a flagship reasoning model at xhigh).
+- Prose and judgment: the `poteto-prose` entry's concrete selector in `model`.
+- Trivial mechanical edits and verification: the `poteto-swarm` entry's concrete selector (upstream default: e.g. a flagship model one step down).
+- Diverse review and design panels: the `poteto-arena` / `poteto-interrogate` lists (upstream default: e.g. three distinct-family seats), one runner per entry, each entry's concrete selector in `model`.
 
 **The dissenting-family seat is an exception.** It runs outside a panel only when the user named it for this task or two flagship runs of the same brief failed its check. Say which. Difficulty alone never qualifies.
 
