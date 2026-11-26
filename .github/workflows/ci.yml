@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
@@ -20,3 +22,6 @@ jobs:
         run: bun x --package typescript -- tsc --noEmit -p tsconfig.json
       - name: Validate manifests
         run: bun -e 'for (const f of ["plugin.json","package.json"]) { const m = await Bun.file(f).json(); if (!m.name) throw new Error(f); } console.log("manifests ok")'
+      - name: Version bump covers release changes
+        if: github.event_name == 'pull_request'
+        run: bun scripts/version-guard.ts "origin/${{ github.base_ref }}"

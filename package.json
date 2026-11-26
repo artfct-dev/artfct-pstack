@@ -6,7 +6,11 @@
   "omp": {
     "extensions": ["./src/pstack.ts"]
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "scripts": {
+    "check:version": "bun scripts/version-guard.ts",
+    "bump": "bun scripts/bump-version.ts"
+  },
   "devDependencies": {
     "@oh-my-pi/pi-coding-agent": "^18.12.3",
     "@types/node": "^26.6.10",
