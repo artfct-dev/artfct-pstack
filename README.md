@@ -13,17 +13,21 @@ available — on any harness. Full-port policy and locked decisions live in
 
 ## Install
 
+Full per-client matrix (15 harnesses): [`skills/setup-artfct/references/supported-clients.md`](skills/setup-artfct/references/supported-clients.md).
+
 | Harness | How | State |
 |---|---|---|
 | OMP | `omp plugin link /path/to/artfct-pstack`, then `/reload-plugins` | ✅ verified live |
-| Cursor | clone into `~/.cursor/plugins/artfct-pstack` (skills resolve as `skills/<name>/SKILL.md`) | 🟡 content-ported, needs a live pass |
-| Claude Code | via its plugin system once cataloged (pending); skills are importable today | 🟡 content-ported, needs a live pass |
-| Codex / other | copy `skills/` into the harness skills dir; host-agnostic cores apply, host-only steps skip with a note | 🟡 designed, needs a live pass |
+| OpenClaw | install prompt in any OpenClaw channel; local installs need `--force --accept-capabilities` | ✅ verified live |
+| Hermes | flatten to one dir, `hermes plugins validate` + `doctor`, `hermes plugins add`, OAuth per skill | ✅ verified live |
+| Cursor | clone into `~/.cursor/plugins/artfct-pstack` (benny lives here natively) | 🟡 content-ported, needs a live pass |
+| Claude Code / Codex / other | plugin install, or copy `skills/` into the harness skills dir; host-agnostic cores apply | 🟡 designed, needs a live pass |
 
 ## Setup (required before `/poteto-mode` runs anything)
 
 ```
-/setup-pstack-omp
+/setup-artfct       # first: connect the Artfct plugin so proof can publish
+/setup-pstack-omp   # then: detect host, pick pack + budget, write routing
 ```
 
 Detects the host harness first and never leaves its registry — Codex resolves
@@ -56,6 +60,8 @@ never public unless asked, secrets redacted first.
   runtime needs Cursor Automations — no equivalent elsewhere yet. See `PORT.md`.
 - Host-only steps (pinned mode, `sessionModes` loop, `ctx.ui.*` dialogs) are OMP
   extension features; elsewhere they skip with a one-line note per the skill text.
+- `AGENTS.md` and `CLAUDE.md` are never published: the `publish-evidence`
+  denylist skips them alongside secrets.
 
 Working in this repo? Read [`AGENTS.md`](AGENTS.md) first — spec conformance
 floor, commands, and commit rules.

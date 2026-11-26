@@ -9,6 +9,7 @@ const DENIED_BASENAMES = [
 	/(^|[_.-])id_rsa/i,
 	/token/i,
 	/cookies?/i,
+	/^(AGENTS|CLAUDE)\.md$/i,
 ];
 
 export function isDenied(filePath: string): boolean {

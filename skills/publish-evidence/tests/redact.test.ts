@@ -3,7 +3,7 @@ import { isDenied, redactText } from "../scripts/redact.ts";
 
 describe("isDenied", () => {
 	test("blocks secret-shaped basenames", () => {
-		for (const name of [".env", ".env.local", "api-secret.json", "credentials.yml", "key.pem", "id_rsa", "auth-token.txt", "cookies.db"]) {
+		for (const name of [".env", ".env.local", "api-secret.json", "credentials.yml", "key.pem", "id_rsa", "auth-token.txt", "cookies.db", "AGENTS.md", "CLAUDE.md"]) {
 			expect(isDenied(`/work/x/${name}`)).toBe(true);
 		}
 	});

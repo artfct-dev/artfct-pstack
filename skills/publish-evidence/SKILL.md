@@ -27,7 +27,7 @@ Follow the artfct publish rules (`artfct-publish` skill when present; if no Artf
 
 Drop anything secret before it leaves the machine:
 
-- filename denylist (see `scripts/redact.ts`): `.env*`, `*secret*`, `*credential*`, `*.pem`, `*.key`, `*token*` basenames, `cookies`;
+- filename denylist (see `scripts/redact.ts`): `.env*`, `*secret*`, `*credential*`, `*.pem`, `*.key`, `*token*` basenames, `cookies`, plus `AGENTS.md`/`CLAUDE.md` (agent instructions are never published);
 - content scan of text evidence for token patterns (`AKIA…`, `ghp_`/`github_pat_`, `xox…`, `PRIVATE KEY` blocks, `Bearer …`): replace with `***REDACTED***` and count hits.
 
 List every skipped file and every redaction in your reply. Binaries (screenshots, video, traces) ship as-is after the denylist — a terminal screenshot can leak a token, so say so when one is included. When in doubt, ask before publishing.
