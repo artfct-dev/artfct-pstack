@@ -30,8 +30,15 @@ log in `PORT.md`.
 
 - Tests: `bun test skills/publish-evidence/tests/` (must be 9/9 before push).
 - Types: `bun x --package typescript -- tsc --noEmit -p tsconfig.json` (strict,
-  clean). `tsconfig.json` deliberately includes only `src` + `skills/publish-evidence`
-  — upstream-vendored scripts (`poteto-mode/scripts/`) carry their own toolchain.
+  clean). `tsconfig.json` includes `src`, `skills/publish-evidence`, and
+  `scripts` — upstream-vendored scripts (`poteto-mode/scripts/`) carry their own
+  toolchain.
+- Releases: any change under `skills/`, `agents/`, `src/`, or to `plugin.json`
+  bumps `version` in `plugin.json` and `package.json` in the same PR
+  (`bun run bump patch`, also `minor`/`major`). OMP's `plugin upgrade` treats an
+  unchanged version as nothing to do and reinstalls the old commit, so a merged
+  fix without a bump never reaches an installed plugin. CI enforces it;
+  `bun run check:version` runs the same check locally against `origin/main`.
 - Deps: `bun install` only for type packages. Never commit `node_modules/`
   (gitignored) or test output (`skills/publish-evidence/tests/fixtures/out/`).
 - Commits: selective per-file via the eval `commit` flow (shared-worktree rule),
