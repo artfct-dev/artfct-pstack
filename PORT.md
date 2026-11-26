@@ -6,12 +6,13 @@ see `DESIGN.md` "Universal plugin" for what stays portable.
 
 | pstack (Cursor) | OMP port |
 |---|---|
-| `Task(subagent_type, run_in_background, model)` | `task(agent:, …)` async; agent names from `agents/`; model via role alias, never a hardcoded slug |
+| `Task(subagent_type, run_in_background, model)` | `task(agent:, …)` async; agent names from `agents/`; model routing per role, never a hardcoded slug |
 | `subagent_type: "poteto-agent"` | `agent: "poteto-agent"` (+ fresh-subagent default; resume only for checkout/branch/process state) |
+| `model: <slug>` on every `Task` call | concrete `provider/model-id[:level]` copied from the role, requiring `task.perCallModel: on`; `@role` aliases resolve only in `modelRoles` values, agent frontmatter, and `task.agentModelOverrides`; code spawns omit `model` |
 | `generalPurpose` | `task` (default agent) |
 | `/loop` | `sessionModes` loop or queued follow-ups |
 | option+enter custom mode | pinned `/poteto-mode` (extension-owned, see `DESIGN.md`) |
-| `~/.cursor/rules/pstack-models.mdc` | `~/.omp/agent/config.yml` `modelRoles` + `task.agentModelOverrides` (OMP harness; other harnesses write host-native form per `setup-pstack-omp` step 5) |
+| `~/.cursor/rules/pstack-models.mdc` | `~/.omp/agent/config.yml` `modelRoles` + `task.agentModelOverrides` + `task.perCallModel: on` (OMP harness; other harnesses write host-native form per `setup-pstack-omp` step 5) |
 | Model slugs (`claude-opus-5-5-xhigh-fast`, `gemini-4-neon-xhigh`, …) | harness-aware pack resolution (`setup-pstack-omp` step 0–4): host registry only — a Codex harness resolves Codex models only; `e.g.`-marked examples only |
 | `/deslop`, `control-ui`/`control-cli`, bugbot, Cursor `/autopilot` | skip with one-line note |
 | `create-skill` (Cursor built-in) | the **authoring a skill** playbook (no OMP counterpart) |

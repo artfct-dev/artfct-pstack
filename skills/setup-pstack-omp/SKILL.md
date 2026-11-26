@@ -34,6 +34,8 @@ Ask which pack (prefer a select UI over free text). Suggest the harness-named pa
 
 Budget (prefer select UI): `large — xhigh reasoning`, `medium — high`, `small — medium`. Apply the budget as the harness-native effort marker on every written selector (on OMP the `:level` suffix: large keeps the resolved level, medium lowers one step, small two; floor at the model's lowest advertised level; never write a level the model doesn't support; no role runs above `xhigh`).
 
+Also ask once whether the main chat runs the pack flagship. On OMP the main chat is `modelRoles.default`: every new session and every `task` spawn without a model of its own starts there. Offer the pack flagship at the budget level, or keep the current model. Never write `default` without the answer. Say the running session keeps its model until restart.
+
 ## 3. Resolve roles
 
 Rank candidates by recency then capability within the pack predicate. Assign:
@@ -53,14 +55,24 @@ Panel lists keep upstream semantics: one subagent per entry, alias entries (`inh
 
 Every written selector must be in the detected set at the written level or below, in harness-native syntax (OMP `provider/id:level`, Cursor `Task` slug, other harnesses the listing's native string). `inherit-parent`/`auto` always pass. A chosen value that is unavailable stops the write — ask again, never substitute silently.
 
+Alias syntax differs by position. An `@role` alias resolves only inside `modelRoles` values, agent frontmatter `model`, and `task.agentModelOverrides`. A `task` call's `model` takes one concrete `provider/model-id[:level]` copied from the role's value; role aliases, arrays, and globs fail preflight there.
+
 ## 5. Write the config
 
 Write in host-native form. Never invent a destination path:
 
-- OMP: update (do not overwrite) the agent `config.yml` — default `~/.omp/agent`, `~/.omp/profiles/<name>/agent` under `--profile <name>`: set the six `modelRoles` keys above and `task.agentModelOverrides: { poteto-agent: "@poteto-code", comment-sicko: "@poteto-swarm" }`. Preserve every other key. Re-runs are idempotent.
+- OMP: update (do not overwrite) the agent `config.yml` — default `~/.omp/agent`, `~/.omp/profiles/<name>/agent` under `--profile <name>`. Write:
+  - `modelRoles`: the six role keys above. A single-model role holds one concrete selector; the three panel roles hold one entry per seat.
+  - `modelRoles.default`: only when the user chose to route the main chat.
+  - `task.perCallModel: on`. Without it a `task` call's `model` is rejected, so panel seats, prose spawns, and swarm workers silently keep the agent's own role instead of theirs. Only the operator layer can grant it.
+  - `task.agentModelOverrides`: `{ comment-sicko: "@poteto-swarm" }`. Drop any `poteto-agent` entry: its frontmatter already routes `@poteto-code`, and an override turns every per-call role model for that agent into a conflict error.
+  - Leave `task.perCallModelAllow` unset when the operator has none. If it is already set, add every resolved role model as a bare `provider/id` (no level), because an allowlisted call must also be listed there.
+  - Read the six role keys, `modelRoles.default` when written, and `task.perCallModel` back before reporting; a rejected key means the write did not take.
+
+  Preserve every other key. Re-runs are idempotent.
 - Cursor: write `~/.cursor/rules/pstack-models.mdc`, an `alwaysApply` rule in the upstream shape (per-role lines, `# budget` line). Overwrite the whole file so re-runs stay idempotent.
 - Any other harness: use its native equivalent when one exists; otherwise print the resolved role table with the harness-native selectors and say exactly where to put it, then stop. Do not guess a path.
 
 ## 6. Confirm
 
-Report the harness, pack, budget, per-role resolution (noting every substitution and every collapsed panel), and that new sessions pick it up. Offer once: if the project has no scripted way to drive the real app, offer to generate a project-local verification skill.
+Report the harness, pack, budget, per-role resolution (noting every substitution and every collapsed panel), whether the main chat was routed, and that new sessions pick it up. On OMP, state that a spawn keeps its role because `task.perCallModel: on` lets the routed skills pass each role's concrete selector. Offer once: if the project has no scripted way to drive the real app, offer to generate a project-local verification skill.

@@ -104,6 +104,24 @@ real loaders still read their own paths (OMP reads `package.json`
 implements §8 namespaces — the manifest entry keeps the mapping
 machine-readable for the day they do, without breaking today's loaders.
 
+## Amendment: role enforcement on OMP
+
+OMP resolves an `@role` alias only inside `modelRoles` values, agent frontmatter
+`model`, and `task.agentModelOverrides`. A `task` call's `model` is one concrete
+`provider/model-id[:level]` and is rejected while `task.perCallModel` is `off`
+(the default), so upstream's "model per Task call" had no effect: `swarm` read a
+role key that did not exist (`swarm workers`), panels and prose spawns passed
+aliases that failed preflight, and the `poteto-agent` override made even a valid
+per-call role model a conflict error. Locked fix: setup writes
+`task.perCallModel: on`, writes only `comment-sicko` into
+`task.agentModelOverrides` (frontmatter already routes `poteto-agent` to
+`@poteto-code`), and leaves `task.perCallModelAllow` unset unless the operator
+already narrows it, in which case every role model is listed there as a bare
+`provider/id` — the six role values are the grant set. Code spawns omit `model`;
+prose, swarm, and every panel seat pass the role's concrete selector. The main
+chat is `modelRoles.default` and is written only when the user chooses to
+route it.
+
 ## Amendment: frontmatter stripped for strict harnesses
 
 `disable-model-invocation: true` (plus `icon`/`color`, `paths:`) removed
