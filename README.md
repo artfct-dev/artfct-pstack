@@ -23,7 +23,8 @@ Full per-client matrix (15 harnesses): [`skills/setup-artfct/references/supporte
 | Cursor | `cursor agent --plugin-dir <dir>`, marketplace one-click, or skill-folder copy (benny needs its merge step) | ✅ verified live |
 | Claude Code | `/plugin marketplace add <repo-dir>`, `/plugin install artfct-pstack@artfct-pstack` | ✅ verified live |
 | Codex | marketplace wrapper + `codex plugin add` (see matrix) | ✅ verified live |
-| Other (Kiro, Devin, Copilot, …) | plugin install or copy `skills/` into the harness skills dir; host-agnostic cores apply | 🟡 designed, needs a live pass |
+| Copilot | `copilot plugin marketplace add <dir>`, `copilot plugin install` (no auth needed) | ✅ verified live |
+| Remaining (Devin, Kiro, ChatGPT, …) | plugin install or copy `skills/` into the harness skills dir; host-agnostic cores apply | 🟡 live pass blocked on account/GUI where noted in matrix |
 
 ## Setup (required before `/poteto-mode` runs anything)
 
