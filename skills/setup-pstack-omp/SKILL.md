@@ -31,6 +31,9 @@ Ask which pack (prefer a select UI over free text). Suggest the harness-named pa
 - `big-labs` — one seat each from Anthropic, OpenAI, Google; panel seats must hold distinct `family()` tokens (cross-vendor review is the point). Families the harness doesn't serve stop with ask.
 - `chinese-labs` — DeepSeek, Qwen, GLM, Moonshot/Kimi, Minimax; same distinct-family rule for panels. Same stop-with-ask rule off-harness.
 - `free` — detected models with zero cost, largest context first; panels collapse to however many distinct families exist (1–3), stated explicitly.
+- `free+big` — free seats carry the parallel work (swarm workers and panel seats) while the pack's big paid flagship carries code and judgment. Pick the big seat as the most recent paid model with reasoning and tools at the largest context; pick free seats by the same capability test. Panels hold one seat per distinct `family`, preferring free seats and falling back to cheap paid families when free ones cannot fill three.
+
+When the harness's own list omits family, recency, and capability flags, ask the provider for them before ranking — on OpenCode, `GET https://opencode.ai/inference/go/v1/models` returns `family`, `release_date`, `capabilities`, `limit`, and `cost` per model without authentication (the `zen` sibling at `/zen/v1/models` has the same shape). Treat the `zen` free tier as app-only: its API answers `429 FreeUsageLimitError`, so free roles resolve from `go` only.
 
 Budget (prefer select UI): `large — xhigh reasoning`, `medium — high`, `small — medium`. Apply the budget as the harness-native effort marker on every written selector (on OMP the `:level` suffix: large keeps the resolved level, medium lowers one step, small two; floor at the model's lowest advertised level; never write a level the model doesn't support; no role runs above `xhigh`).
 
@@ -50,6 +53,8 @@ Rank candidates by recency then capability within the pack predicate. Assign:
 | `poteto-interrogate` (list) | interrogate reviewers | same shape as arena runners |
 
 Panel lists keep upstream semantics: one subagent per entry, alias entries (`inherit-parent`/`auto`) included in the count.
+
+For `free+big`, `poteto-code` and `poteto-prose` take the big paid seat, `poteto-swarm` takes the cheapest free seat that reasons and calls tools, and the three panel lists share the same distinct-family seats, ordered by capability. Name every collapse: a pack with two distinguishable families writes two panel seats, not three seats of two models that share one family.
 
 ## 4. Validate
 
