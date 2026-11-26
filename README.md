@@ -20,8 +20,10 @@ Full per-client matrix (15 harnesses): [`skills/setup-artfct/references/supporte
 | OMP | `omp plugin link /path/to/artfct-pstack`, then `/reload-plugins` | ✅ verified live |
 | OpenClaw | install prompt in any OpenClaw channel; local installs need `--force --accept-capabilities` | ✅ verified live |
 | Hermes | flatten to one dir, `hermes plugins validate` + `doctor`, `hermes plugins add`, OAuth per skill | ✅ verified live |
-| Cursor | clone into `~/.cursor/plugins/artfct-pstack` (benny lives here natively) | 🟡 content-ported, needs a live pass |
-| Claude Code / Codex / other | plugin install, or copy `skills/` into the harness skills dir; host-agnostic cores apply | 🟡 designed, needs a live pass |
+| Cursor | `cursor agent --plugin-dir <dir>`, marketplace one-click, or skill-folder copy (benny needs its merge step) | ✅ verified live |
+| Claude Code | `/plugin marketplace add <repo-dir>`, `/plugin install artfct-pstack@artfct-pstack` | ✅ verified live |
+| Codex | marketplace wrapper + `codex plugin add` (see matrix) | ✅ verified live |
+| Other (Kiro, Devin, Copilot, …) | plugin install or copy `skills/` into the harness skills dir; host-agnostic cores apply | 🟡 designed, needs a live pass |
 
 ## Setup (required before `/poteto-mode` runs anything)
 

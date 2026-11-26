@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "artfct-pstack",
+  "description": "Rigorous agent workflows you can parallelize with confidence.",
+  "owner": {
+    "name": "artfct-pstack contributors",
+    "url": "https://github.com/artfct-dev/artfct-pstack"
+  },
+  "plugins": [
+    {
+      "name": "artfct-pstack",
+      "source": "./",
+      "description": "Rigorous agent workflows you can parallelize with confidence. Artfct-ecosystem port of Cursor pstack: portable agent plugin with native client extensions."
+    }
+  ]
+}
