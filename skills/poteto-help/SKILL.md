@@ -43,7 +43,7 @@ Installing changes nothing until the user invokes a skill. Only `/setup-pstack-o
 
 If cost is the worry, say where the tokens go and how to spend fewer. pstack spends extra tokens on subagents and review panels. Rerun `/setup-pstack-omp` and pick a smaller budget or cheaper models. A role set to `auto` or `inherit-parent` runs on the parent model, which saves tokens when the parent runs on a cheaper model. A shorter panel list runs fewer subagents, one for each entry. Save `/poteto-mode` for work that needs rigor.
 
-artfct-pstack skills run on any harness. A step that needs a host-only feature, such as pinned `/poteto-mode`, the `sessionModes` loop, or `ctx.ui.*` dialogs (OMP extension), or Bugbot or Automations (Cursor), is skipped with a one-line note.
+artfct-pstack skills run on every client in `skills/setup-artfct/references/supported-clients.md`. A step that needs a host-only feature, such as pinned `/poteto-mode`, the `sessionModes` loop, or `ctx.ui.*` dialogs (OMP extension), or Bugbot or Automations (Cursor), is skipped with a one-line note.
 
 Other harnesses read the skills, because they use the Agent Skills format. Map `task` subagents to the host's delegate mechanism and per-role models to the setup resolution; pinned `/poteto-mode` and the `sessionModes` loop are OMP extension features, used where available and skipped with a note elsewhere.
 
