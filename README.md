@@ -1,14 +1,14 @@
 # artfct-pstack
 
 > Add-on that works alongside [pstack](https://github.com/cursor/plugins/tree/main/pstack)
-> (MIT, copyright Lauren Tan, handle poteto). Not a rebrand; no endorsement
-> by Cursor or SpaceXAI is stated or implied. See `LICENSE`.
+> (MIT, copyright Lauren Tan, handle poteto). Not a rebrand, and not endorsed
+> by Cursor or Lauren Tan. See `LICENSE`.
 
 Poteto-mode rigorous engineering workflows as a **universal agent plugin**
 (portable `plugin.json`), **artfct-first**: wherever you run it, proof ends as
 an Artfct artifact. Decision trails, feature maps, benchmark tables, and
 bakeoff comparisons publish team-shared via the Artfct MCP when it's
-available — on any harness. Full-port policy and locked decisions live in
+available, on every client marked verified live in the matrix below. Full-port policy and locked decisions live in
 [`DESIGN.md`](DESIGN.md); the host→port substitution log in [`PORT.md`](PORT.md).
 
 ## Install
@@ -20,10 +20,10 @@ Full per-client matrix (15 harnesses): [`skills/setup-artfct/references/supporte
 | OMP | `omp plugin link /path/to/artfct-pstack`, then `/reload-plugins` | ✅ verified live |
 | OpenClaw | install prompt in any OpenClaw channel; local installs need `--force --accept-capabilities` | ✅ verified live |
 | Hermes | flatten to one dir, `hermes plugins validate` + `doctor`, `hermes plugins add`, OAuth per skill | ✅ verified live |
-| Cursor | `cursor agent --plugin-dir <dir>`, marketplace one-click, or skill-folder copy (benny needs its merge step) | ✅ verified live |
-| Claude Code | `/plugin marketplace add <repo-dir>`, `/plugin install artfct-pstack@artfct-pstack` | ✅ verified live |
-| Codex | marketplace wrapper + `codex plugin add` (see matrix) | ✅ verified live |
-| Copilot | `copilot plugin marketplace add <dir>`, `copilot plugin install` (no auth needed) | ✅ verified live |
+| Cursor | `git clone https://github.com/artfct-dev/artfct-pstack`, then `cursor-agent --plugin-dir ./artfct-pstack`; or copy `skills/` into `.cursor/skills/` (benny needs its merge step) | ✅ verified live |
+| Claude Code | `/plugin marketplace add artfct-dev/artfct-pstack`, then `/plugin install artfct-pstack@artfct-pstack` | ✅ verified live |
+| Codex | `codex plugin marketplace add artfct-dev/artfct-pstack`, then `codex plugin add artfct-pstack@artfct-pstack` (skills only; connect Artfct with [artfct-plugin](https://github.com/artfct-dev/artfct-plugin)) | ✅ verified live |
+| Copilot | `copilot plugin marketplace add artfct-dev/artfct-pstack`, then `copilot plugin install artfct-pstack@artfct-pstack` (no auth needed) | ✅ verified live |
 | Remaining (Devin, Kiro, ChatGPT, …) | plugin install or copy `skills/` into the harness skills dir; host-agnostic cores apply | 🟡 live pass blocked on account/GUI where noted in matrix |
 
 ## Setup (required before `/poteto-mode` runs anything)
