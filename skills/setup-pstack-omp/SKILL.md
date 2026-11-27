@@ -30,7 +30,14 @@ Ask which pack (prefer a select UI over free text). Suggest the harness-named pa
 - `<provider-id>` — any provider in the detected harness's registry (e.g. `anthropic`, `codex`, `openai` on OMP). Rank flagship → efficient within that provider.
 - `big-labs` — one seat each from Anthropic, OpenAI, Google; panel seats must hold distinct `family()` tokens (cross-vendor review is the point). Families the harness doesn't serve stop with ask.
 - `chinese-labs` — DeepSeek, Qwen, GLM, Moonshot/Kimi, Minimax; same distinct-family rule for panels. Same stop-with-ask rule off-harness.
-- `free` — detected models with zero cost, largest context first; panels collapse to however many distinct families exist (1–3), stated explicitly.
+- `free` — detected models with zero cost ordered by provider usage, then largest context; panels collapse to however many distinct families exist (1–3), stated explicitly.
+- `free+big` — free seats carry the parallel work (swarm workers and panel seats) while the pack's big paid flagship carries code and judgment. Pick the big seat as the most recent paid model with reasoning and tools at the largest context; order free seats by provider usage. Panels hold one seat per distinct `family`, preferring free seats and falling back to cheap paid families when free ones cannot fill three.
+
+On a harness whose provider is OpenCode Go, order free seats by observed usage: OpenCode publishes a snapshot at `https://opencode.ai/data/index.json` (`leaderboard.pastWeek[].tokens` ranked per model, refreshed through the day). Match its `model` field to the harness id (`<id>` ↔ `<id>-free`, plus named aliases such as `beam-1.0-501b-a23b` ↔ `beam-free` and `iceman` ↔ `iceman-contributor-free`), and drop every match the roster does not list. Usage is popularity, not measured quality: it reflects price, client defaults, and availability, so it orders free seats against each other and never ranks a paid seat over a free one on its own. On any other harness, order free seats within the detected registry by capability then context; no OpenCode id, URL, or alias applies there.
+
+When the detected harness serves OpenCode Go and the plugin ships `scripts/rank-free-seats.ts`, run it instead of deriving that ranking by hand: `bun <plugin root>/scripts/rank-free-seats.ts --seats <panel size> --avoid <parent family>`. It reads the roster and the usage snapshot, prints the ranked free seats, and prints one backfill candidate per unused family. Probe the candidates in order and take the first that answers; report the pick. Skip the script entirely on another harness.
+
+When the harness's own list omits family, recency, and capability flags, ask the provider for them before ranking — on OpenCode Go, `GET https://opencode.ai/inference/go/v1/models` returns `family`, `release_date`, `capabilities`, `limit`, and `cost` per model without authentication. Resolve free seats only from the ids that roster lists: a model on a pricing page but absent from it fails inference with `Model <id> isn't included in OpenCode Go`, so never write one.
 
 Budget (prefer select UI): `large — xhigh reasoning`, `medium — high`, `small — medium`. Apply the budget as the harness-native effort marker on every written selector (on OMP the `:level` suffix: large keeps the resolved level, medium lowers one step, small two; floor at the model's lowest advertised level; never write a level the model doesn't support; no role runs above `xhigh`).
 
@@ -50,6 +57,8 @@ Rank candidates by recency then capability within the pack predicate. Assign:
 | `poteto-interrogate` (list) | interrogate reviewers | same shape as arena runners |
 
 Panel lists keep upstream semantics: one subagent per entry, alias entries (`inherit-parent`/`auto`) included in the count.
+
+For `free+big`, `poteto-code` and `poteto-prose` take the big paid seat, `poteto-swarm` takes the cheapest free seat that reasons and calls tools, and the three panel lists share the same distinct-family seats, ordered by capability. Name every collapse: a pack with two distinguishable families writes two panel seats, not three seats of two models that share one family.
 
 ## 4. Validate
 

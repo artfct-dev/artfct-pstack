@@ -27,13 +27,24 @@ fork `rubybear-lgtm/plugins`, upstream `cursor/plugins`).
 5. **All skills + tools usable**: every skill invokable directly, both agents
    ported, `benny/` (3 skills) in scope. `poteto-mode` is the router, not the
    gatekeeper.
-6. **Packs are search directives, not tables** (open + four metas):
-   `defaults | big-labs | chinese-labs | free`, plus any provider id as a pack
+6. **Packs are search directives, not tables** (open + five metas):
+   `defaults | free+big | big-labs | chinese-labs | free`, plus any provider id as a pack
    name (`anthropic`, `codex`, …). The setup skill contains a resolver procedure
    over `ctx.models.list()` — predicates + ranking + budget ladder — and writes
-   only detected IDs. Examples in the skill are `e.g.`-marked, never written.
+   only detected IDs. Family, recency, and capability flags come from the
+   provider's own metadata endpoint when the harness list omits them (OpenCode Go:
+   `GET https://opencode.ai/inference/go/v1/models`), and free seats are ordered
+   by the provider's published usage snapshot
+   (`https://opencode.ai/data/index.json`, `leaderboard.pastWeek[].tokens`,
+   matched through `-free` aliases) by `scripts/rank-free-seats.ts`, which also
+   prints one backfill candidate per unused family. Usage is a popularity prior,
+   not a quality measure: it orders free seats among themselves and never lifts a
+   paid seat.
+   Examples in the skill are `e.g.`-marked, never written.
 7. **Repo shape**: standalone `artfct-pstack` repo; `skills/` + `agents/` vendored
    from the fork for porting (fork stays a clean mirror for three-way diffs).
+   `scripts/` is repo tooling only — version guard, version bump, free-seat
+   ranking. No client loads it; conformant clients ignore the directory.
 
 ## Deferred / explicit non-goals
 
