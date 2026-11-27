@@ -32,10 +32,9 @@ fork `rubybear-lgtm/plugins`, upstream `cursor/plugins`).
    name (`anthropic`, `codex`, …). The setup skill contains a resolver procedure
    over `ctx.models.list()` — predicates + ranking + budget ladder — and writes
    only detected IDs. Family, recency, and capability flags come from the
-   provider's own metadata endpoint when the harness list omits them (OpenCode:
-   `GET https://opencode.ai/inference/go/v1/models`); `zen` free models are
-   app-only and answer 429 on the API, so they never back a role. Examples in
-   the skill are `e.g.`-marked, never written.
+   provider's own metadata endpoint when the harness list omits them (OpenCode Go:
+   `GET https://opencode.ai/inference/go/v1/models`). Examples in the skill are
+   `e.g.`-marked, never written.
 7. **Repo shape**: standalone `artfct-pstack` repo; `skills/` + `agents/` vendored
    from the fork for porting (fork stays a clean mirror for three-way diffs).
 
