@@ -43,6 +43,8 @@ fork `rubybear-lgtm/plugins`, upstream `cursor/plugins`).
    Examples in the skill are `e.g.`-marked, never written.
 7. **Repo shape**: standalone `artfct-pstack` repo; `skills/` + `agents/` vendored
    from the fork for porting (fork stays a clean mirror for three-way diffs).
+   `scripts/` is repo tooling only — version guard, version bump, free-seat
+   ranking. No client loads it; conformant clients ignore the directory.
 
 ## Deferred / explicit non-goals
 
