@@ -6,7 +6,7 @@
   "omp": {
     "extensions": ["./src/pstack.ts"]
   },
-  "version": "0.1.5",
+  "version": "0.1.6",
   "scripts": {
     "check:version": "bun scripts/version-guard.ts",
     "bump": "bun scripts/bump-version.ts"
