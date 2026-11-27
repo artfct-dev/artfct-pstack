@@ -33,8 +33,12 @@ fork `rubybear-lgtm/plugins`, upstream `cursor/plugins`).
    over `ctx.models.list()` — predicates + ranking + budget ladder — and writes
    only detected IDs. Family, recency, and capability flags come from the
    provider's own metadata endpoint when the harness list omits them (OpenCode Go:
-   `GET https://opencode.ai/inference/go/v1/models`). Examples in the skill are
-   `e.g.`-marked, never written.
+   `GET https://opencode.ai/inference/go/v1/models`), and free seats are ordered
+   by the provider's published usage snapshot
+   (`https://opencode.ai/data/index.json`, `leaderboard.pastWeek[].tokens`,
+   matched through `-free` aliases). Usage is a popularity prior, not a quality
+   measure: it orders free seats among themselves and never lifts a paid seat.
+   Examples in the skill are `e.g.`-marked, never written.
 7. **Repo shape**: standalone `artfct-pstack` repo; `skills/` + `agents/` vendored
    from the fork for porting (fork stays a clean mirror for three-way diffs).
 
